@@ -1,17 +1,22 @@
 {
-    "name": "p5js-projects",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "p5": "^2.2.1"
-    },
-    "devDependencies": {
-        "typescript": "^5.9.3",
-        "vite": "^7.3.1"
-    }
+  "name": "p5js-projects",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3050",
+    "build": "vite build",
+    "preview": "vite preview --port 3050",
+    "start": "vite preview --port 3050",
+    "pm2:start": "pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop p5js",
+    "pm2:restart": "pm2 restart p5js",
+    "pm2:delete": "pm2 delete p5js"
+  },
+  "dependencies": {
+    "p5": "^2.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
 }
