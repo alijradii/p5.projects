@@ -1,7 +1,7 @@
-import { defineConfig, type Plugin } from 'vite'
-import { readdirSync, existsSync, statSync } from 'node:fs'
-import { resolve, join } from 'node:path'
+import { existsSync, readdirSync, statSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
+import { defineConfig, type Plugin } from 'vite'
 
 const IGNORE = new Set([
   'node_modules', 'dist', 'shared', 'src', 'public',
@@ -66,4 +66,9 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    port: 3050,
+    host: true, // binds 0.0.0.0
+    allowedHosts: ['p5js.alijradi.com']
+  }
 })
