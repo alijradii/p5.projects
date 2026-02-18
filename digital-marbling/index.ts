@@ -2,7 +2,6 @@ import { Vector2 } from '@shared/math/Vector2';
 import { PALETTES, randomBetween, randomFromPalette } from '@shared/p5-utils';
 import p5 from 'p5';
 import { Canvas } from './canvas';
-import { createCircleAnimation } from './circle-animation';
 import {
   UI_PANEL_WIDTH,
   getBrushRadius,
@@ -10,7 +9,7 @@ import {
   initColorSwatches,
 } from './ui';
 
-const SELECTED_PALETTE_NAME = "pink"
+const SELECTED_PALETTE_NAME = "ocean"
 const SELECTED_PALETTE = PALETTES[SELECTED_PALETTE_NAME];
 
 function getCanvasSize(): { w: number; h: number } {
@@ -26,7 +25,7 @@ new p5((p: p5) => {
   const canvas = new Canvas(p);
   const start = new Vector2(0, 0);
   let selectedColor: string = SELECTED_PALETTE[0];
-  const circleAnimation = createCircleAnimation(p);
+  // const circleAnimation = createCircleAnimation(p);
 
   p.setup = () => {
     const { w, h } = getCanvasSize();
@@ -52,7 +51,7 @@ new p5((p: p5) => {
   p.draw = () => {
     p.clear();
     p.background(10);
-    circleAnimation.update(canvas);
+    // circleAnimation.update(canvas);
     canvas.draw();
   };
 

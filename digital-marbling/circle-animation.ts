@@ -3,7 +3,7 @@ import { PALETTES, randomBetween, randomFromPalette } from '@shared/p5-utils';
 import type p5 from 'p5';
 import type { Canvas } from './canvas';
 
-const SELECTED_PALETTE = PALETTES.pink;
+const SELECTED_PALETTE = PALETTES.ocean;
 
 /** Ocean palette indices for 3 alternating colors */
 const palette = [SELECTED_PALETTE[0], SELECTED_PALETTE[1], SELECTED_PALETTE[2]] as const;
