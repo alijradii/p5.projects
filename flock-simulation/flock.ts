@@ -43,6 +43,7 @@ export class Flock {
 
       for (const behavior of this.flockBehaviors) {
         const steer = behavior.steer(agent, this, p, neighbors);
+        steer.multiply(behavior.weight);
 
         agent.acceleration.add(steer);
       }
