@@ -1,6 +1,7 @@
 import { Vector2 } from '@shared/math/Vector2';
 import { randomFromPalette } from '@shared/p5-utils';
 import p5 from 'p5';
+import type { Flock } from './flock';
 
 export class FlockAgent {
     public pos: Vector2;
@@ -15,7 +16,7 @@ export class FlockAgent {
         this.pos = pos;
         this.velocity = new Vector2(0, 0);
         this.acceleration = new Vector2(0, 0);
-        this.radius = 10;
+        this.radius = 5;
         this.color = randomFromPalette('neon');
     }
 
@@ -26,9 +27,6 @@ export class FlockAgent {
     }
 
     update(p: p5) {
-        this.velocity.add(this.acceleration);
-        this.pos.add(this.velocity);
-
         this.wrapAround(p);
     }
 
@@ -45,5 +43,20 @@ export class FlockAgent {
         if (this.pos.y < 0) {
             this.pos.y = p.height;
         }
+    }
+
+    getNeighbors(flock: Flock): FlockAgent[] {
+        const neighbors: FlockAgent[] = [];
+
+        for (const otherAgent of flock.flockAgents) {
+            if (otherAgent === this) continue;
+
+            if (Vector2.manhattanDistance(otherAgent.pos, this.pos)
+                > flock.perceptionRadius) continue;
+
+            neighbors.push(otherAgent);
+        }
+
+        return neighbors;
     }
 }

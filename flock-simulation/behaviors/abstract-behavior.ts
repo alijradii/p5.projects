@@ -10,5 +10,5 @@ export abstract class AbstractBehavior {
         this.weight = weight;
     }
 
-    abstract steer(agent: FlockAgent, flock: Flock, p: p5): Vector2;
+    abstract steer(agent: FlockAgent, flock: Flock, p: p5, neighbors: FlockAgent[]): Vector2;
 }
