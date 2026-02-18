@@ -62,6 +62,25 @@ export class Vector2 {
         return new Vector2(this.x / magnitude, this.y / magnitude);
     }
 
+    rotate(theta: number, inPlace: boolean = true) {
+        const v = this.copy();
+
+        v.x = v.x * Math.cos(theta) - v.y * Math.sin(theta);
+        v.y = v.x * Math.sin(theta) + v.y * Math.cos(theta);
+
+        if (inPlace) {
+            this.x = v.x;
+            this.y = v.y;
+            return this;
+        }
+
+        return v;
+    }
+
+    dot(vector: Vector2): number {
+        return this.x * vector.x + this.y * vector.y;
+    }
+
     limit(max: number, inPlace = true): Vector2 {
         const magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
 

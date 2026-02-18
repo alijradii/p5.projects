@@ -29,6 +29,7 @@ export const PALETTES = {
   ocean: ['#03045e', '#0077b6', '#00b4d8', '#90e0ef', '#caf0f8'],
   sunset: ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93'],
   mono: ['#f8f9fa', '#dee2e6', '#adb5bd', '#495057', '#212529'],
+  pink: ['#e63946', '#f4a3a8', '#ffcad4', '#9d4edd', '#c77dff'],
 } as const
 
 export type PaletteName = keyof typeof PALETTES

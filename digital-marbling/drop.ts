@@ -48,4 +48,42 @@ export class Drop {
             this.vertices[i] = vertex;
         }
     }
+
+    _stroke(m: Vector2, x: number, y: number) {
+        const z = 2;
+        const c = 16;
+
+        let u = 1 / Math.pow(2, 1 / c);
+        let b = new Vector2(x, y);
+
+        for (let i = 0; i < this.vertices.length; i++) {
+            let v = this.vertices[i];
+
+            let pb = v.subtract(b, false);
+            let n = m.copy().rotate(Math.PI / 2);
+            let d = Math.abs(pb.dot(n));
+            let mag = z * Math.pow(u, d);
+            v.add(m.copy().multiply(mag));
+
+            this.vertices[i] = v;
+        }
+    }
+
+    stroke(m: Vector2, x: number, y: number) {
+        const z = 2;
+        const c = 16;
+
+        let u = 1 / Math.pow(2, 1 / c);
+
+        for (let i = 0; i < this.vertices.length; i++) {
+            let v = this.vertices[i];
+
+            let mag = Math.abs(v.x - x);
+
+            v.x = v.x;
+            v.y = v.y + z * Math.pow(u, mag);
+
+            this.vertices[i] = v;
+        }
+    }
 }

@@ -2,9 +2,12 @@ import { Vector2 } from '@shared/math/Vector2';
 import { PALETTES, randomBetween, randomFromPalette } from '@shared/p5-utils';
 import p5 from 'p5';
 import { Canvas } from './canvas';
+import { createOceanCircleAnimation } from './circle-animation';
+
+const ANIMATION_DELAY_MS = 2000;
 
 const UI_PANEL_WIDTH = 220;
-const OCEAN = PALETTES.ocean;
+const OCEAN = PALETTES.pink;
 
 function getCanvasSize(): { w: number; h: number } {
   const container = document.getElementById('canvas-container');
@@ -17,7 +20,9 @@ function getCanvasSize(): { w: number; h: number } {
 
 new p5((p: p5) => {
   const canvas = new Canvas(p);
+  const start = new Vector2(0, 0);
   let selectedColor: string = OCEAN[0];
+  const oceanCircleAnimation = createOceanCircleAnimation(p);
 
   p.setup = () => {
     const { w, h } = getCanvasSize();
@@ -57,7 +62,7 @@ new p5((p: p5) => {
       const x = randomBetween(0, p.width);
       const y = randomBetween(0, p.height);
       const radius = randomBetween(80, 200);
-      const color = randomFromPalette('ocean');
+      const color = randomFromPalette('pink');
       canvas.addDrop(new Vector2(x, y), radius, color);
     }
   };
@@ -65,6 +70,7 @@ new p5((p: p5) => {
   p.draw = () => {
     p.clear();
     p.background(10);
+    oceanCircleAnimation.update(canvas);
     canvas.draw();
   };
 
@@ -75,6 +81,19 @@ new p5((p: p5) => {
       const center = new Vector2(p.mouseX, p.mouseY);
       canvas.addDrop(center, radius, selectedColor);
     }
+
+    if (mouseEvent.button === 0) {
+      start.x = p.mouseX;
+      start.y = p.mouseY;
+    }
+  };
+
+  p.mouseDragged = () => {
+    const end = new Vector2(p.mouseX, p.mouseY);
+    end.subtract(start);
+    end.normalize();
+
+    canvas.stroke(end, p.mouseX, p.mouseY);
   };
 
   p.windowResized = () => {
