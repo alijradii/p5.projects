@@ -12,7 +12,7 @@ export class SeparationBehavior extends AbstractBehavior {
         let steer = new Vector2(0, 0);
 
         for (const otherAgent of neighbors) {
-            const distance = Vector2.manhattanDistance(agent.pos, otherAgent.pos);
+            const distance = Vector2.euclideanDistance(agent.pos, otherAgent.pos);
 
             if (distance > flock.avoidanceRadius) {
                 continue;

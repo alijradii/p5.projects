@@ -51,7 +51,7 @@ export class FlockAgent {
         for (const otherAgent of flock.flockAgents) {
             if (otherAgent === this) continue;
 
-            if (Vector2.manhattanDistance(otherAgent.pos, this.pos)
+            if (Vector2.euclideanDistance(otherAgent.pos, this.pos)
                 > flock.perceptionRadius) continue;
 
             neighbors.push(otherAgent);

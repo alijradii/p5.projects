@@ -10,7 +10,7 @@ export class CohesionBehavior extends AbstractBehavior {
 
         let averagePosition = new Vector2(0, 0);
 
-        for (const otherAgent of flock.flockAgents) {
+        for (const otherAgent of neighbors) {
             averagePosition.add(otherAgent.pos);
         }
 
