@@ -23,7 +23,7 @@ export class Flock {
 
     this.flockBehaviors.push(new AlignmentBehavior(0.7));
     this.flockBehaviors.push(new CohesionBehavior(0.5));
-    this.flockBehaviors.push(new SeparationBehavior(0.3));
+    this.flockBehaviors.push(new SeparationBehavior(0.8));
   }
 
   initAgents(p: p5) {

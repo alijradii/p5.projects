@@ -23,7 +23,22 @@ export class FlockAgent {
     draw(p: p5) {
         p.noStroke();
         p.fill(this.color);
-        p.circle(this.pos.x, this.pos.y, this.radius * 2);
+
+        const angle =
+            this.velocity.x !== 0 || this.velocity.y !== 0
+                ? Math.atan2(this.velocity.y, this.velocity.x)
+                : 0;
+
+        const r = this.radius;
+        const nose = r * 1.5;
+        const tail = -r;
+        const wing = r;
+
+        p.push();
+        p.translate(this.pos.x, this.pos.y);
+        p.rotate(angle);
+        p.triangle(nose, 0, tail, wing, tail, -wing);
+        p.pop();
     }
 
     update(p: p5) {
