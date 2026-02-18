@@ -1,4 +1,4 @@
-import type p5 from 'p5'
+import type p5 from 'p5';
 
 export function fullscreenCanvas(p: p5): void {
   p.createCanvas(p.windowWidth, p.windowHeight)
@@ -36,4 +36,8 @@ export type PaletteName = keyof typeof PALETTES
 export function randomFromPalette(palette: PaletteName): string {
   const colors = PALETTES[palette]
   return colors[Math.floor(Math.random() * colors.length)]
+}
+
+export function randomColor(): string {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
