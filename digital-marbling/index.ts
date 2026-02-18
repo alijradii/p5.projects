@@ -39,10 +39,18 @@ new p5((p: p5) => {
     });
     initBrushRadiusInput();
 
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 20; i++) {
+      const x = p.width / 2;
+      const y = p.height / 2;
+      const radius = 150;
+      const color = randomFromPalette(SELECTED_PALETTE_NAME);
+      canvas.addDrop(new Vector2(x, y), radius, color);
+    }
+
+    for (let i = 0; i < 40; i++) {
       const x = randomBetween(0, p.width);
       const y = randomBetween(0, p.height);
-      const radius = randomBetween(80, 200);
+      const radius = randomBetween(80, 100);
       const color = randomFromPalette(SELECTED_PALETTE_NAME);
       canvas.addDrop(new Vector2(x, y), radius, color);
     }
