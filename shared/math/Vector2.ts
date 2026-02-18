@@ -43,6 +43,10 @@ export class Vector2 {
         return new Vector2(this.x / scalar, this.y / scalar);
     }
 
+    copy(): Vector2 {
+        return new Vector2(this.x, this.y);
+    }
+
     normalize(inPlace = true): Vector2 {
         const magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
 

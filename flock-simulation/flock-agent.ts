@@ -9,6 +9,7 @@ export class FlockAgent {
     public acceleration: Vector2;
     public radius: number;
     public color: string;
+    public wanderAngle: number = 0;
 
     constructor(
         pos: Vector2,

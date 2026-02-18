@@ -5,10 +5,11 @@ import type { AbstractBehavior } from './behaviors/abstract-behavior';
 import { AlignmentBehavior } from './behaviors/alignment-behavior';
 import { CohesionBehavior } from './behaviors/cohesoin-behavior';
 import { SeparationBehavior } from './behaviors/separation-behavior';
+import { WanderBehavior } from './behaviors/wander-behavior';
 import { FlockAgent } from './flock-agent';
 
 export class Flock {
-  populationSize: number = 50;
+  populationSize: number = 100;
   maxForce: number = 0.2;
   maxSpeed: number = 2;
 
@@ -24,6 +25,7 @@ export class Flock {
     this.flockBehaviors.push(new AlignmentBehavior(0.7));
     this.flockBehaviors.push(new CohesionBehavior(0.5));
     this.flockBehaviors.push(new SeparationBehavior(0.8));
+    this.flockBehaviors.push(new WanderBehavior(0.3));
   }
 
   initAgents(p: p5) {
@@ -33,6 +35,7 @@ export class Flock {
       );
 
       agent.velocity = Vector2.randomNormalized().multiply(this.maxSpeed);
+      agent.wanderAngle = randomBetween(0, 360);
       this.flockAgents.push(agent);
     }
   }
