@@ -2,12 +2,15 @@ import { Vector2 } from '@shared/math/Vector2';
 import { PALETTES, randomBetween, randomFromPalette } from '@shared/p5-utils';
 import p5 from 'p5';
 import { Canvas } from './canvas';
-import { createOceanCircleAnimation } from './circle-animation';
+import {
+  UI_PANEL_WIDTH,
+  getBrushRadius,
+  initBrushRadiusInput,
+  initColorSwatches,
+} from './ui';
 
-const ANIMATION_DELAY_MS = 2000;
-
-const UI_PANEL_WIDTH = 220;
-const OCEAN = PALETTES.pink;
+const SELECTED_PALETTE_NAME = "ocean"
+const SELECTED_PALETTE = PALETTES[SELECTED_PALETTE_NAME];
 
 function getCanvasSize(): { w: number; h: number } {
   const container = document.getElementById('canvas-container');
@@ -21,8 +24,8 @@ function getCanvasSize(): { w: number; h: number } {
 new p5((p: p5) => {
   const canvas = new Canvas(p);
   const start = new Vector2(0, 0);
-  let selectedColor: string = OCEAN[0];
-  const oceanCircleAnimation = createOceanCircleAnimation(p);
+  let selectedColor: string = SELECTED_PALETTE[0];
+  // const circleAnimation = createCircleAnimation(p);
 
   p.setup = () => {
     const { w, h } = getCanvasSize();
@@ -31,38 +34,16 @@ new p5((p: p5) => {
 
     document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-    const swatchesEl = document.getElementById('color-swatches');
-    if (swatchesEl) {
-      OCEAN.forEach((color) => {
-        const swatch = document.createElement('button');
-        swatch.type = 'button';
-        swatch.className = 'color-swatch' + (color === selectedColor ? ' selected' : '');
-        swatch.style.background = color;
-        swatch.setAttribute('aria-label', `Pick color ${color}`);
-        swatch.addEventListener('click', () => {
-          selectedColor = color;
-          swatchesEl.querySelectorAll('.color-swatch').forEach((s) => s.classList.remove('selected'));
-          swatch.classList.add('selected');
-        });
-        swatchesEl.appendChild(swatch);
-      });
-    }
-
-    const radiusInput = document.getElementById('brush-radius') as HTMLInputElement;
-    const radiusValue = document.getElementById('brush-radius-value');
-    if (radiusInput && radiusValue) {
-      const updateLabel = () => {
-        radiusValue.textContent = radiusInput.value;
-      };
-      radiusInput.addEventListener('input', updateLabel);
-      updateLabel();
-    }
+    initColorSwatches(SELECTED_PALETTE, selectedColor, (color) => {
+      selectedColor = color;
+    });
+    initBrushRadiusInput();
 
     for (let i = 0; i < 70; i++) {
       const x = randomBetween(0, p.width);
       const y = randomBetween(0, p.height);
       const radius = randomBetween(80, 200);
-      const color = randomFromPalette('pink');
+      const color = randomFromPalette(SELECTED_PALETTE_NAME);
       canvas.addDrop(new Vector2(x, y), radius, color);
     }
   };
@@ -70,14 +51,13 @@ new p5((p: p5) => {
   p.draw = () => {
     p.clear();
     p.background(10);
-    oceanCircleAnimation.update(canvas);
+    // circleAnimation.update(canvas);
     canvas.draw();
   };
 
   p.mousePressed = (mouseEvent: MouseEvent) => {
     if (mouseEvent.button === 2) {
-      const radiusInput = document.getElementById('brush-radius') as HTMLInputElement;
-      const radius = radiusInput ? Number(radiusInput.value) : 200;
+      const radius = getBrushRadius();
       const center = new Vector2(p.mouseX, p.mouseY);
       canvas.addDrop(center, radius, selectedColor);
     }
@@ -93,7 +73,11 @@ new p5((p: p5) => {
     end.subtract(start);
     end.normalize();
 
-    canvas.stroke(end, p.mouseX, p.mouseY);
+    if (p.keyIsDown("x")) {
+      canvas.vstroke(end, p.mouseX, p.mouseY);
+    } else {
+      canvas.stroke(end, p.mouseX, p.mouseY);
+    }
   };
 
   p.windowResized = () => {

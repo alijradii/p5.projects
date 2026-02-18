@@ -27,6 +27,12 @@ export class Canvas {
         }
     }
 
+    vstroke(v: Vector2, x: number, y: number) {
+        for (let drop of this.drops) {
+            drop.vstroke(v, x, y);
+        }
+    }
+
     stroke(v: Vector2, x: number, y: number) {
         for (let drop of this.drops) {
             drop.stroke(v, x, y);

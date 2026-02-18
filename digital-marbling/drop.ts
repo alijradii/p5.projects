@@ -49,7 +49,7 @@ export class Drop {
         }
     }
 
-    _stroke(m: Vector2, x: number, y: number) {
+    stroke(m: Vector2, x: number, y: number) {
         const z = 2;
         const c = 16;
 
@@ -69,7 +69,7 @@ export class Drop {
         }
     }
 
-    stroke(m: Vector2, x: number, y: number) {
+    vstroke(m: Vector2, x: number, y: number) {
         const z = 2;
         const c = 16;
 

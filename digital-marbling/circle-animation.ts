@@ -3,18 +3,17 @@ import { PALETTES, randomBetween, randomFromPalette } from '@shared/p5-utils';
 import type p5 from 'p5';
 import type { Canvas } from './canvas';
 
-const OCEAN = PALETTES.pink;
+const SELECTED_PALETTE = PALETTES.pink;
 
 /** Ocean palette indices for 3 alternating colors */
-const palette = [OCEAN[0], OCEAN[1], OCEAN[2]] as const;
+const palette = [SELECTED_PALETTE[0], SELECTED_PALETTE[1], SELECTED_PALETTE[2]] as const;
 
 const CIRCLE_RADIUS = 80;
 const FIRST_BATCH = 20;
 const TOTAL_CIRCLES = 25;
 const FRAMES_PER_CIRCLE = 12;
-const CENTER_STROKE_DISPLACEMENT = 20;
 
-export function createOceanCircleAnimation(p: p5) {
+export function createCircleAnimation(p: p5) {
   let circlesAdded = 0;
   let frameCounter = 0;
   let strokeCount = 0;
@@ -69,12 +68,12 @@ export function createOceanCircleAnimation(p: p5) {
       } else if (strokeCount < 40) {
         const cx = p.width / 2;
         const cy = p.height / 2;
-        canvas.stroke(new Vector2(0, -1), cx, cy);
+        canvas.vstroke(new Vector2(0, -1), cx, cy);
         strokeCount++;
       } else if (strokeCount < 80) {
         const cy = p.height / 2;
-        canvas.stroke(new Vector2(0, -1), xOffset, cy);
-        canvas.stroke(new Vector2(0, -1), p.width - xOffset, cy);
+        canvas.vstroke(new Vector2(0, -1), xOffset, cy);
+        canvas.vstroke(new Vector2(0, -1), p.width - xOffset, cy);
         strokeCount += 2;
       }
     },
