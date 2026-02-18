@@ -12,9 +12,11 @@ new p5((p: p5) => {
     }
 
     p.draw = () => {
+        p.clear();
         p.background(10, 10, 10, 40)
 
         flock.draw(p);
+        flock.update(p);
     }
 
     p.windowResized = () => handleResize(p)

@@ -25,8 +25,25 @@ export class FlockAgent {
         p.circle(this.pos.x, this.pos.y, this.radius * 2);
     }
 
-    update() {
+    update(p: p5) {
         this.velocity.add(this.acceleration);
         this.pos.add(this.velocity);
+
+        this.wrapAround(p);
+    }
+
+    wrapAround(p: p5) {
+        if (this.pos.x > p.width) {
+            this.pos.x = 0;
+        }
+        if (this.pos.x < 0) {
+            this.pos.x = p.width;
+        }
+        if (this.pos.y > p.height) {
+            this.pos.y = 0;
+        }
+        if (this.pos.y < 0) {
+            this.pos.y = p.height;
+        }
     }
 }

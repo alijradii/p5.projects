@@ -18,9 +18,14 @@ export class Flock {
         new Vector2(randomBetween(0, p.width), randomBetween(0, p.height)),
       );
 
-
       agent.velocity = Vector2.randomNormalized().multiply(this.maxSpeed);
       this.flockAgents.push(agent);
+    }
+  }
+
+  update(p: p5) {
+    for (const agent of this.flockAgents) {
+      agent.update(p);
     }
   }
 
